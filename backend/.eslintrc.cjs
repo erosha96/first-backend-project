@@ -9,6 +9,7 @@ module.exports = {
 		ecmaVersion: 12,
 		sourceType: 'module'
 	},
+	parser: 'babel-eslint',
 	plugins: ['prettier'],
 	rules: {
 		'prettier/prettier': 'error',
