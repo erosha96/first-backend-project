@@ -1,6 +1,7 @@
 import app from './app.js'
 import { config } from './config'
 import { sequelize } from './models'
+import redisClient from './utils/redis'
 
 const boot = () => {
   app.listen(config.PORT, () => {
@@ -13,10 +14,12 @@ sequelize
   .authenticate()
   .then(() => {
     console.log('Connected to database')
-    boot()
+    redisClient.connect().then(() => {
+      console.log('Connected to redis')
+      boot()
+    })
   })
   .catch((e) => {
     console.log('Error while connecting to database')
     console.error(e)
   })
-console.log('finish')
