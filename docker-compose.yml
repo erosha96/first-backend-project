@@ -24,6 +24,7 @@ services:
     env_file: .env
     networks:
       - app-tier
+    restart: on-failure
     depends_on:
       - db
       - redis
@@ -41,3 +42,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     networks:
       - app-tier
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 1s
+      retries: 10
