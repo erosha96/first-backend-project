@@ -18,4 +18,16 @@ export default class User extends ModelBuilder {
       type: DataTypes.STRING
     }
   }
+
+  static associate(models) {
+    console.log(models)
+    User.hasMany(models.meme, {
+      foreignKey: 'userId',
+      as: 'memes'
+    })
+    User.hasMany(models.file, {
+      foreignKey: 'userId',
+      as: 'files'
+    })
+  }
 }

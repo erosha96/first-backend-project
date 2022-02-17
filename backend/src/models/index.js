@@ -1,6 +1,8 @@
 import { Sequelize } from 'sequelize'
 import { databaseConfig } from '../config/database'
 import User from './User'
+import Meme from './Meme.js'
+import File from './File.js'
 
 const { host, port, user, password, databaseName } = databaseConfig
 
@@ -16,10 +18,14 @@ const sequelize = new Sequelize(databaseName, user, password, {
   }
 })
 
-const models = [User]
+const models = [User, Meme, File]
 
 models.forEach((model) => {
   model.initialize(sequelize)
+})
+
+models.forEach((model) => {
+  if (model.associate) model.associate(sequelize.models)
 })
 
 await sequelize.sync()
