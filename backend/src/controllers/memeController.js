@@ -1,7 +1,10 @@
 async function createMeme() {}
-async function getAllMemes() {}
+async function getAllMemes(req, res) {
+  console.log(req.user)
+  res.send(req.user.toJSON())
+}
 async function getMeme(req, res) {
-  console.log(res.json({ test: 'test' }))
+  console.log(req.user)
 }
 async function updateMeme() {}
 async function removeMeme() {}

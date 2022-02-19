@@ -18,7 +18,7 @@ async function login({ body }, res) {
   const token = await getRandomToken()
 
   await redisClient.SET(token, user.id)
-  await redisClient.EXPIRE(token, 120)
+  await redisClient.EXPIRE(token, 60 * 60)
 
   res.send({ token })
 }
