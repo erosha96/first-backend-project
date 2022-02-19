@@ -5,8 +5,6 @@ import cors from 'cors'
 
 const app = express()
 
-router.init(app)
-
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
@@ -14,6 +12,8 @@ app.use(
   })
 )
 app.use(cors())
+
+router.init(app)
 
 app.get('/', async (req, res) => {
   res.send('Hello World!')
