@@ -18,18 +18,17 @@ async function login({ body }, res) {
   const token = await getRandomToken()
 
   await redisClient.SET(token, user.id)
-  await redisClient.EXPIRE(token, 60 * 60)
+  await redisClient.EXPIRE(token, process.env.AUTH_TOKEN_EXPIRATION_TIME)
 
   res.send({ token })
 }
 async function register({ body }, res) {
   const { username, password, email } = body
-  const foundUserByUsername = await User.findOne({ where: { username } })
-  if (foundUserByUsername) {
+
+  if (await User.findOne({ where: { username } })) {
     throw createError.Conflict('Username already exist')
   }
-  const foundUserByEmail = await User.findOne({ where: { email } })
-  if (foundUserByEmail) {
+  if (await User.findOne({ where: { email } })) {
     throw createError.Conflict('Email already exist')
   }
 
@@ -44,7 +43,7 @@ async function register({ body }, res) {
   const token = await getRandomToken()
 
   await redisClient.SET(token, newUser.id)
-  await redisClient.EXPIRE(token, 120)
+  await redisClient.EXPIRE(token, process.env.AUTH_TOKEN_EXPIRATION_TIME)
 
   res.send({ token })
 }

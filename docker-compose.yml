@@ -20,6 +20,7 @@ services:
       - ${API_PORT}:${API_PORT}
     volumes:
       - ./backend:/var/www/api
+      - ./storage:/var/www/storage
       - "/var/www/api/node_modules"
     env_file: .env
     networks:
@@ -36,7 +37,7 @@ services:
     ports:
       - ${MYSQL_PORT}:3306
     environment:
-      MYSQL_DATABASE: ${MYSQL_DB_NAME}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}

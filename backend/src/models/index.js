@@ -3,6 +3,9 @@ import { databaseConfig } from '../config/database'
 import User from './User'
 import Meme from './Meme.js'
 import File from './File.js'
+import Tag from './Tag.js'
+import MemeTag from './MemeTag.js'
+import MemeUserStat from './MemeUserStat.js'
 
 const { host, port, user, password, databaseName } = databaseConfig
 
@@ -18,7 +21,7 @@ const sequelize = new Sequelize(databaseName, user, password, {
   }
 })
 
-const models = [User, Meme, File]
+const models = [User, Meme, File, Tag, MemeTag, MemeUserStat]
 
 models.forEach((model) => {
   model.initialize(sequelize)

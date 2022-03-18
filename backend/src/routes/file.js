@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { wrap } from '../utils/wrap'
 import fileController from '../controllers/fileController'
 import multer from 'multer'
+import { authMiddleware } from '../middlewares/auth'
 
 const upload = multer({
   limits: {
@@ -11,6 +12,6 @@ const upload = multer({
 
 const fileRouter = Router()
 
-fileRouter.post('/', upload.single('file'), wrap(fileController.upload))
+fileRouter.post('/', authMiddleware, upload.single('file'), wrap(fileController.upload))
 
 export { fileRouter }

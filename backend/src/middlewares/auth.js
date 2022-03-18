@@ -13,5 +13,5 @@ export const authMiddleware = async (req, res, next) => {
       return
     }
   }
-  next(createError.Unauthorized('Unauthorized'))
+  next(createError.Unauthorized())
 }
